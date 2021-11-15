@@ -1,8 +1,8 @@
 module.exports = {
   extend: '@apostrophecms/widget-type',
   options: {
-    name: 'test',
-    label: 'Test',
+    name: 'pokedex',
+    label: 'Pokedex',
     icon: 'text-subject'
   },
   fields: {

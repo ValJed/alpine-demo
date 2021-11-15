@@ -4,7 +4,7 @@ export default () => {
   window.Alpine = Alpine;
 
   document.addEventListener('alpine:init', () => {
-    Alpine.data('test', () => ({
+    Alpine.data('pokedex', () => ({
       name: '',
       failed: false,
       loading: false,
@@ -53,8 +53,8 @@ export default () => {
 
   Alpine.start();
 
-  apos.util.widgetPlayers.test = {
-    selector: '[data-test]',
+  apos.util.widgetPlayers.pokedex = {
+    selector: '[data-pokedex]',
     player: function (el) {
 
     }
