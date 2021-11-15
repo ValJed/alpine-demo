@@ -1,0 +1,18 @@
+
+<div data-test x-data="test">
+  <h3>{{ data.widget.name }}</h3>
+  <div>
+    <input type="text" x-model="input">
+    <button x-show="input" @click="search">Submit</button>
+  </div>
+  <template x-if="input">
+    <p>Looking if <span x-text="input"></span> exits.</p>
+
+  <template x-if="pokemon">
+    <div class="results">
+    <h3 x-text="pokemon.name"></h3>
+    <img :src="pokemon.sprites.front-default" :alt="pokemon.name">
+    </div>
+  </template>
+
+</div>
