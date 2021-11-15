@@ -6,8 +6,10 @@
 {% extends "layout.html" %}
 
 {% block main %}
-  <section class="content">
-    <h1>{{ data.page.title }}</h1>
+<div x-data class="container" :class="$store.darkMode.on && 'bg-black'">
+  <button class="dm" x-data @click="$store.darkMode.toggle()">DM</button>
+  <section  class="content">
     {% area data.page, 'main' %}
   </section>
+</div>
 {% endblock %}

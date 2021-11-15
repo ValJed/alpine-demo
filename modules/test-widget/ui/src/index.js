@@ -1,21 +1,57 @@
 import Alpine from 'alpinejs';
 
-window.Alpine = Alpine;
-
-document.addEventListener('alpine:init', () => {
-  Alpine.data('test', () => ({
-    input: '',
-    pokemon: null,
-    async search () {
-      console.log('this.pokemonName ===> ', this.pokemonName);
-      this.pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.pokemonName}`);
-    }
-  }));
-});
-
-Alpine.start();
-
 export default () => {
+  window.Alpine = Alpine;
+
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('test', () => ({
+      name: '',
+      failed: false,
+      loading: false,
+      pokemon: {},
+      async search() {
+        try {
+          this.loading = true
+          this.failed = false;
+
+          const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.name.toLowerCase()}`);
+
+          if (res.ok) {
+            const data = await res.json();
+
+            console.log('data.held_items ===> ', data.held_items)
+
+            this.pokemon = {
+              name: data.name,
+              img: data.sprites.front_default,
+              height: data.height,
+              weight: data.weight,
+              types: data.types.map((t) => t.type.name),
+              items: data.held_items.map((i) => i.name)
+            };
+          } else {
+            this.pokemon = {};
+            this.failed = this.name;
+          }
+        } catch (err) {
+          this.pokemon = {};
+          this.failed = this.name;
+        } finally {
+          this.loading = false
+        }
+      }
+    }));
+
+    Alpine.store('darkMode', {
+      on: false,
+
+      toggle() {
+          this.on = ! this.on
+      }
+  })
+  });
+
+  Alpine.start();
 
   apos.util.widgetPlayers.test = {
     selector: '[data-test]',

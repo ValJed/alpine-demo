@@ -1,18 +1,37 @@
-
 <div data-test x-data="test">
   <h3>{{ data.widget.name }}</h3>
   <div>
-    <input type="text" x-model="input">
-    <button x-show="input" @click="search">Submit</button>
+    <form @submit.prevent="search">
+      <input type="name" x-model="name" />
+      <button x-show="name" @click="search">Submit</button>
+    </form>
   </div>
-  <template x-if="input">
-    <p>Looking if <span x-text="input"></span> exits.</p>
-
-  <template x-if="pokemon">
+  <p x-show="name && !pokemon.name && !failed">
+    Looking if <span x-text="name"></span> exits.
+  </p>
+  <template x-if="pokemon.name && !loading" x-transition>
     <div class="results">
-    <h3 x-text="pokemon.name"></h3>
-    <img :src="pokemon.sprites.front-default" :alt="pokemon.name">
+      <h3 x-text="pokemon.name"></h3>
+      <img :src="pokemon.img" :alt="pokemon.name" />
+      <p>Height: <span x-text="pokemon.height"></span></p>
+      <p>Weight: <span x-text="pokemon.weight"></span></p>
+      <p>Types:</p>
+      <ul>
+        <template x-for="type in pokemon.types">
+          <li x-text="type"></li>
+        </template>
+      </ul>
+      <div x-show="pokemon.items.lenght">
+      <p>items:</p>
+      <ul>
+        <template x-for="item in pokemon.items">
+          <li x-text="item"></li>
+        </template>
+      </ul>
+      </div>
     </div>
   </template>
-
+  <template x-if="failed">
+    <p><span x-text="failed"></span> n'existe pas...</p>
+  </template>
 </div>
