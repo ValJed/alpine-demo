@@ -6,7 +6,12 @@
 {% extends "layout.html" %}
 
 {% block main %}
-<div x-data class="container" :class="$store.darkMode.on && 'bg-black'">
+<div
+  x-data
+  class="container"
+  :class="$store.darkMode.on && 'bg-black'"
+  x-init="$watch('$store.darkMode.on', val => console.log(val))"
+>
   <button class="dm" x-data @click="$store.darkMode.toggle()">DM</button>
   <section  class="content">
     {% area data.page, 'main' %}

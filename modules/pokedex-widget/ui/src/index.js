@@ -19,8 +19,6 @@ export default () => {
           if (res.ok) {
             const data = await res.json();
 
-            console.log('data.held_items ===> ', data.held_items)
-
             this.pokemon = {
               name: data.name,
               img: data.sprites.front_default,
@@ -46,7 +44,7 @@ export default () => {
       on: false,
 
       toggle() {
-          this.on = ! this.on
+          this.on = !this.on
       }
   })
   });
